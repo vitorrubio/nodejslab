@@ -1,11 +1,6 @@
-const http = require('http');
+/*const http = require('http');
 const url = require('url');
-
 const SEQ = require('sequelize');
-
-
-
-
 const sequelize = new SEQ('sqlite::memory:');
 
 const User = sequelize.define('User', {
@@ -210,7 +205,14 @@ const server = http.createServer( (req, res) => {
         res.end('bad request, meu patrão'); 
     }
 });
+*/
+export default function serverInit()
+{
+    // server.listen(port, hostname, () => {
+    //     console.log(`Server running at http://${hostname}:${port}/`);
+    // });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+    console.log("hello world");
+}
+
+serverInit();

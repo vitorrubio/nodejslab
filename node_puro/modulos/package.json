@@ -1,0 +1,12 @@
+{
+  "name": "modulos",
+  
+  "version": "1.0.0",
+  "description": "",
+  "main": "testeConsomeModulo.js",
+  "scripts": {
+    "test": "node testeConsomeModulo.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

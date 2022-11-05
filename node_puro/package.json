@@ -1,4 +1,7 @@
 {
+  "name": "modulos",
+  "type": "module",
+  "main": "userApi.js",
   "dependencies": {
     "sequelize": "^6.25.3",
     "sqlite3": "^5.1.2"
