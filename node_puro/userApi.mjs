@@ -1,13 +1,16 @@
-/*const http = require('http');
-const url = require('url');
-const SEQ = require('sequelize');
-const sequelize = new SEQ('sqlite::memory:');
+import * as http from 'http';
+import * as url from 'url';
+import { Sequelize, DataTypes } from 'sequelize';
+//import SQLite from 'sqlite3';
+
+
+const sequelize = new Sequelize('sqlite::memory:');
 
 const User = sequelize.define('User', {
-    username: SEQ.STRING,
-    birthday: SEQ.DATE,
+    username: DataTypes.STRING,
+    birthday: DataTypes.DATE,
     id: {
-        type: SEQ.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     }
@@ -205,12 +208,12 @@ const server = http.createServer( (req, res) => {
         res.end('bad request, meu patrão'); 
     }
 });
-*/
+
 export default function serverInit()
 {
-    // server.listen(port, hostname, () => {
-    //     console.log(`Server running at http://${hostname}:${port}/`);
-    // });
+    server.listen(port, hostname, () => {
+        console.log(`Server running at http://${hostname}:${port}/`);
+    });
 
     console.log("hello world");
 }
