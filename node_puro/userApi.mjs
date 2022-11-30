@@ -4,7 +4,8 @@ import { Sequelize, DataTypes } from 'sequelize';
 //import SQLite from 'sqlite3';
 
 
-const sequelize = new Sequelize('sqlite::memory:');
+//const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
 
 const User = sequelize.define('User', {
     username: DataTypes.STRING,
