@@ -4,6 +4,7 @@
   "main": "userApi.js",
   "dependencies": {
     "sequelize": "^6.25.3",
-    "sqlite3": "^5.1.2"
+    "sqlite3": "^5.1.2",
+    "tedious": "^15.1.2"
   }
 }
