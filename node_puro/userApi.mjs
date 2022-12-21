@@ -1,30 +1,6 @@
 import * as http from 'http';
 import * as url from 'url';
-import { Sequelize, DataTypes } from 'sequelize';
-//import SQLite from 'sqlite3';
 
-
-//const sequelize = new Sequelize('sqlite::memory:');
-//const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
-const sequelize = new Sequelize('nosso_bancao', 'zumble', 'gimble', {
-    host: 'localhost',
-    dialect: 'mssql'
-});
-
-
-const User = sequelize.define('User', {
-    username: DataTypes.STRING,
-    birthday: DataTypes.DATE,
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    }
-});
-
-let sync = sequelize.sync();
-// sync.then(x => {})
-// .catch(err)
 
 const hostname = '127.0.0.1';
 const port = 8090;
@@ -50,17 +26,25 @@ const server = http.createServer( (req, res) => {
     {
         console.log(x);
         
-        let modfunc = x.default;
-        console.log(modfunc);
-        let obj = new modfunc(req);
-        console.log(obj);
+        try{
+            let modfunc = x.default;
+            console.log(modfunc);
+            let obj = new modfunc(req, res);
+            console.log(obj);
 
-        //user/10 === user/{id}
-        //prod/10/100 === prod/{cat}/{pag}
+            let fn = obj[req.method.toLowerCase()];
+            if (!fn) {
+                res.statusCode = 400;
+                res.end('bad request, meu patrão');
+            }
+            obj[req.method.toLowerCase()]();
+        }
+        catch(err)
+        {
+            res.statusCode = 500;
+            res.end(err);
+        }
 
-        obj[req.method.toLowerCase()]();
-
-        res.end();
     });
      
 
