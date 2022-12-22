@@ -13,9 +13,12 @@ const server = http.createServer( (req, res) => {
     let queryObject = parsedUrl.query;
 
     let vetor = parsedUrl.pathname.split('/');
+    console.log('aaa');
     console.log(vetor);
+    console.log('bbb');
     if ((vetor.length < 2) || (vetor[1] == '') || (vetor[1] == null) )
     {
+        console.log('ccc');
         res.statusCode = 404;
         res.end("Não encontrado");
         return;
@@ -29,7 +32,9 @@ const server = http.createServer( (req, res) => {
         try{
             let modfunc = x.default;
             console.log(modfunc);
+            console.log(1);
             let obj = new modfunc(req, res);
+            console.log(2);
             console.log(obj);
 
             let fn = obj[req.method.toLowerCase()];
