@@ -8,9 +8,10 @@ import { Sequelize, DataTypes } from 'sequelize';
 //const sequelize = new Sequelize('sqlite::memory:');
 //const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
 const sequelize = new Sequelize('nosso_bancao', 'zumble', 'gimble', {
-    host: 'localhost',
+    host: '192.168.0.63',
     dialect: 'mssql'
 });
+
 
 
 export const User = sequelize.define('User', {
@@ -37,14 +38,13 @@ export default function user(req, res)
         let queryObject = parsedUrl.query;
 
         if (queryObject.id == null) {
-            console.log("sem id");
+
             let prom = User.findAll();
-            console.log('1');
+
             prom.then(result => {
-                console.log(result);
-                console.log('2');
+
                 res.end(JSON.stringify(result));
-                console.log('3');
+
             }).catch(err => {
                 res.statusCode = 500;
                 console.log(err);
@@ -54,10 +54,10 @@ export default function user(req, res)
         }
         else {
 
-            console.log("com id");
+
             let prom = User.findByPk(queryObject.id);
             prom.then(result => {
-                console.log(result);
+
 
                 if (result == null) {
                     res.statusCode = 404;
@@ -82,13 +82,13 @@ export default function user(req, res)
             body += chunk.toString(); // convert Buffer to string
         });
         req.on('end', () => {
-            console.log(body);
+
 
             let usr = JSON.parse(body);
             let prom = User.create(usr);
             prom.then(x => {
                 res.statusCode = 201;
-                console.log(x);
+
                 res.end(JSON.stringify(x));
             }).catch(err => {
                 res.statusCode = 500;
@@ -115,7 +115,7 @@ export default function user(req, res)
             body += chunk.toString(); // convert Buffer to string
         });
         req.on('end', () => {
-            console.log(body);
+
 
             let usrAlterado = JSON.parse(body);
 
@@ -123,22 +123,19 @@ export default function user(req, res)
             User.findByPk(queryObject.id)
                 .then(usr => {
 
-                    console.log(usr);
+
                     if (usr == null) {
                         res.statusCode = 404;
                         res.end("naum fode meu");
                         return
                     }
 
-
-
-
                     usr.username = usrAlterado.username;
                     usr.birthday = usrAlterado.birthday;
 
                     usr.save()
                         .then(result => {
-                            console.log(result);
+
                             res.end(JSON.stringify(result));
                         })
                         .catch(err => {
@@ -167,27 +164,25 @@ export default function user(req, res)
         if (queryObject.id == null) {
 
             res.statusCode = 400;
-            res.end('DELETAR O QUÊ, meu patrão?');
+            res.end('DELETAR O QUÊ?');
         }
         else {
 
 
-            console.log("com id");
-
             User.findByPk(queryObject.id)
                 .then(usr => {
 
-                    console.log(usr);
+
 
                     if (usr == null) {
                         res.statusCode = 404;
-                        res.end("naum fode meu");
+                        res.end("não encontrado");
                         return
                     }
 
 
                     User.destroy({ where: { id: queryObject.id } }).then(result => {
-                        console.log(result);
+
                         res.statusCode = 204;
                         res.end("");
                     }).catch(err => {

@@ -6,6 +6,11 @@ const hostname = '127.0.0.1';
 const port = 8090;
 
 const server = http.createServer( (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+
+
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     
@@ -13,45 +18,35 @@ const server = http.createServer( (req, res) => {
     let queryObject = parsedUrl.query;
 
     let vetor = parsedUrl.pathname.split('/');
-    console.log('aaa');
-    console.log(vetor);
-    console.log('bbb');
+
     if ((vetor.length < 2) || (vetor[1] == '') || (vetor[1] == null) )
     {
-        console.log('ccc');
+
         res.statusCode = 404;
         res.end("Não encontrado");
         return;
     }
-
-    let modulo = vetor[1];
-    import(`./${modulo}.mjs`).then(function(x)
-    {
-        console.log(x);
-        
-        try{
-            let modfunc = x.default;
-            console.log(modfunc);
-            console.log(1);
-            let obj = new modfunc(req, res);
-            console.log(2);
-            console.log(obj);
-
-            let fn = obj[req.method.toLowerCase()];
-            if (!fn) {
-                res.statusCode = 400;
-                res.end('bad request, meu patrão');
-            }
-            obj[req.method.toLowerCase()]();
-        }
-        catch(err)
+    try {
+        let modulo = vetor[1];
+        import(`./${modulo}.mjs`).then(function(x)
         {
-            res.statusCode = 500;
-            res.end(err);
-        }
+                let modfunc = x.default;
+                let obj = new modfunc(req, res);
+                let fn = obj[req.method.toLowerCase()];
+                if (!fn) {
+                    res.statusCode = 400;
+                    res.end('bad request');
+                }
+                obj[req.method.toLowerCase()]();
 
-    });
-     
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        res.end(err );
+    }
 
 });
 
