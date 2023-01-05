@@ -6,6 +6,11 @@ const hostname = '127.0.0.1';
 const port = 8090;
 
 const server = http.createServer( (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    //res.setHeader("", "");
+
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     
@@ -20,33 +25,33 @@ const server = http.createServer( (req, res) => {
         res.end("Não encontrado");
         return;
     }
-
-    let modulo = vetor[1];
-    import(`./${modulo}.mjs`).then(function(x)
-    {
-        console.log(x);
-        
-        try{
-            let modfunc = x.default;
-            console.log(modfunc);
-            let obj = new modfunc(req, res);
-            console.log(obj);
-
-            let fn = obj[req.method.toLowerCase()];
-            if (!fn) {
-                res.statusCode = 400;
-                res.end('bad request, meu patrão');
-            }
-            obj[req.method.toLowerCase()]();
-        }
-        catch(err)
+    try {
+        let modulo = vetor[1];
+        import(`./${modulo}.mjs`).then(function(x)
         {
-            res.statusCode = 500;
-            res.end(err);
-        }
+            console.log(x);
+            
 
-    });
-     
+                let modfunc = x.default;
+                console.log(modfunc);
+                let obj = new modfunc(req, res);
+                console.log(obj);
+
+                let fn = obj[req.method.toLowerCase()];
+                if (!fn) {
+                    res.statusCode = 400;
+                    res.end('bad request, meu patrão');
+                }
+                obj[req.method.toLowerCase()]();
+
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.statusCode = 500;
+        res.end(err );
+    }
 
 });
 
