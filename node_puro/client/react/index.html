@@ -1,0 +1,80 @@
+<html>
+
+<body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <script type="text/jsx">
+
+      const app = document.getElementById("app")
+    
+      function  Header() {
+            const [state, setState] = React.useState();
+
+            React.useEffect(() => {
+                fetch(`http://127.0.0.1:8090/user`).then(function(response){
+                        return response.json()     
+                }).then(function(data){
+                    setState(data);
+                    
+                });
+            }, []);
+
+            //return (
+            //    <>{Listao({usuarios:state})}</>
+            //)
+
+            //return (
+            //        <>
+            //            <h1>Develop. Preview. Ship. 🚀</h1>
+            //            {Listao({usuarios:state})}
+            //        </>
+            //    );
+
+            return (
+                <>
+                    <h1>Develop. Preview. Ship. 🚀</h1>
+                    <Listao usuarios={state} />
+                </>
+            )
+
+            //return(
+            //    <h1>Develop. Preview. Ship. 🚀</h1>
+            //)
+       }
+    
+
+       ReactDOM.render(<Header/>, app)
+
+
+
+           function Listao({usuarios}) {
+                console.log(usuarios);
+                if(usuarios)
+                {
+                    console.log(usuarios);
+                    return (
+                        <ul>
+                            {
+                                usuarios.map(c =>
+                                    <li>{c.id} - {c.username}</li>
+                                )
+                            }
+
+                        </ul>
+
+                    );                    
+                }
+
+                return (<span>ainda não</span>);
+
+            }
+
+    </script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 //const sequelize = new Sequelize('sqlite::memory:');
 //const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
 const sequelize = new Sequelize('nosso_bancao', 'zumble', 'gimble', {
-    host: '192.168.0.63',
+    host: 'localhost',
     dialect: 'mssql'
 });
 
