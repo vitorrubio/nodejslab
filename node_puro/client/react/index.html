@@ -58,20 +58,43 @@
                 {
                     console.log(usuarios);
                     return (
-                        <ul>
-                            {
-                                usuarios.map(c =>
-                                    <li>{c.id} - {c.username}</li>
-                                )
-                            }
+                        <div>
+                            <ul>
+                                {
+                                    usuarios.map(c =>
+                                        <li>{c.id} - {c.username}</li>
+                                    )
+                                }
 
-                        </ul>
-
+                            </ul>
+                            <button onClick={minhaFuncao}>Cadastrar</button>
+                        </div>
                     );                    
                 }
 
                 return (<span>ainda não</span>);
 
+            }
+
+            function minhaFuncao()
+            {
+                console.log("hello world");
+
+                fetch(`http://127.0.0.1:8090/user`, 
+                { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    //mode: 'cors',
+                    //credentials: 'same-origin',
+                    body: JSON.stringify({
+                            "username":"vitor",
+                            "birthday":"1983-05-02"
+                        })
+                }).then(function(response){
+                        console.log("sucesso");   
+                });
             }
 
     </script>

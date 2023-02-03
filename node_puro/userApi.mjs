@@ -27,6 +27,16 @@ const server = http.createServer( (req, res) => {
         return;
     }
     try {
+        if (req.method.toUpperCase() === "OPTIONS")
+        {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Methods", "*");
+            res.setHeader("Access-Control-Allow-Headers", "*");
+
+            res.statusCode = 200;
+            res.end();
+            return
+        }
         let modulo = vetor[1];
         import(`./${modulo}.mjs`).then(function(x)
         {
