@@ -65,10 +65,10 @@
 
 
             function Listao({usuarios}) {
-                console.log(usuarios);
+
                 if(usuarios)
                 {
-                    console.log(usuarios);
+
                     return (
                         <div>
                             <ul>
@@ -108,9 +108,9 @@
                     body: JSON.stringify(usr)
                 }).then(function(response){
                         console.log("sucesso"); 
-                        let novos = [...state];
-                        novos.push(usr);
-                        setState(novos);
+                        state.push(usr);
+                        console.log(state); 
+                        setState([...state]);
                 });
             }
        }
