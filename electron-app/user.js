@@ -51,5 +51,5 @@
                         console.log(data);
                         alert(`usuário {data.username} cirado com sucesso`);
                     })
-                        if x is null
+                        
             }
