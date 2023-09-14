@@ -6,17 +6,18 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 
 //const sequelize = new Sequelize('sqlite::memory:');
-//const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
-const sequelize = new Sequelize('nosso_bancao', 'zumble', 'gimble', {
-    host: 'localhost',
-    dialect: 'mssql'
-});
+const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
+// const sequelize = new Sequelize('burnoutados', 'sa', '#Numb147', {
+//     host: '192.168.0.67',
+//     dialect: 'mssql'
+// });
 
 
 
 export const User = sequelize.define('User', {
     username: DataTypes.STRING,
-    birthday: DataTypes.DATE,
+    birthday: DataTypes.DATEONLY,
+    salary: DataTypes.DOUBLE,
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,12 +25,21 @@ export const User = sequelize.define('User', {
     }
 });
 
-let sync = sequelize.sync();
-// sync.then(x => {})
-// .catch(err)
+
+
+export function updateDb()
+{
+    console.log("Database Sync");
+    sequelize.sync({ alter: true });
+    console.log("Database Sync Finished");
+}
+
 
 export default function user(req, res)
 {
+
+    updateDb();
+
     let fname = 'user';
 
     this.get = () => {

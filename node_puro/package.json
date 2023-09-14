@@ -6,6 +6,6 @@
     "readline-sync": "^1.4.10",
     "sequelize": "^6.25.3",
     "sqlite3": "^5.1.2",
-    "tedious": "^15.1.2"
+    "tedious": "^15.1.3"
   }
 }
