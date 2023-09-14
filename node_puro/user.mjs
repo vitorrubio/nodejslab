@@ -7,7 +7,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 //const sequelize = new Sequelize('sqlite::memory:');
 const sequelize = new Sequelize('sqlite:./nosso_bancao.sqlite');
-// const sequelize = new Sequelize('burnoutados', 'sa', '#Numb147', {
+// const sequelize = new Sequelize('burnoutados', 'sa', 'cAs2ptUjbEyCP%m^GKe9', {
 //     host: '192.168.0.67',
 //     dialect: 'mssql'
 // });
